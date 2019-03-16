@@ -34,11 +34,12 @@ def music_home(request):
         music = pafy.new(link) # get all information about the song
         MusicModelJAM.objects.create(url=link) # save the data in database so that we can inherited it to another function
         # It can't inherited like this global keyword can work but when the function calls we say one argument is missing "request"
+        print(music)
         return render(request, 'music/music_home.html', {'form':form, 'music':music})
     except:
         pass
     print(music)
-    return render(request, 'music/music_home.html', {'form':form})
+    return render(request, 'music/music_home.html', {'form':form, 'music':music})
 
 # -------------------------- download_data (to download music) --------------------------
 # 1. again form

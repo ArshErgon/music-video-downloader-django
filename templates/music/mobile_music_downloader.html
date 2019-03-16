@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+
+<div class="container-1">
+  <center><h1><span>Hello world Mobile</span></h1></center>
+</div>
+<div class="container">
+    <form class="" action="{% url 'mobile_search' %}" method="post">{% csrf_token %}
+      {{ form.as_p }}
+      <center><input class="btn btn-primary" type="submit" name="" value="Search"></center><br>
+    </form>
+    <form class="" action="{% url 'mobile_download' %}" method="post">
+      {% csrf_token %}
+    {% if music %}
+      <div class="container">
+        <div class="jumbotron">
+          <center><a href="{{ music.url }}" target="blank"><img src="{{ music.bigthumbhd }}" alt="" width="50%"></a></center><br>
+          <center><div>
+            <p>Song: {{ music.title }}</p>
+            <p>Author: {{ music.author }}</p>
+            <p>Category: {{ music.category }}</p>
+          </div></center>
+            <div class="container">
+              <div class="form-group">
+              <label for="exampleFormControlSelect1">Select</label>
+              <select class="form-control" id="exampleFormControlSelect1" required name="selected">
+                <option>Audio:m4a@128k</option>
+                <option>Video:mp4@640x360</option>
+                <option>Video:mp4@1920x1080</option>
+              </select><br>
+                <center>
+                  <input type="submit" name="download_button" value="Download" class="btn btn-primary">
+                </center>
+            </div>
+          </div>
+          </div>
+
+          {% endif %}
+          {% if music %}
+
+          <div class="jumbotron">
+            <center>
+              <p>Hit <kbd>Download</kbd> and enjoy. Downloading videos and music from YouTube is <strike>Difficult</strike><b> Eazy</b></p>
+            </center>
+              <div class="img-fluid">
+                <center><iframe src="https://giphy.com/embed/NXp9HM6YeuS0U" width="auto" height="auto" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/computer-dancing-happy-NXp9HM6YeuS0U">via GIPHY</a></p></center>
+              </div>
+          </div>
+
+          {% else %}
+          <div class="jumbotron">
+            <center>
+            <h1>What is going on here?</h1>
+            <code><p>Paste and search then select your requirements and hit download</p></code>
+          </center>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+
+      </form>
+</div>
+<div class="container">
+  <div class="jumbotron">
+    <p>I can make it much better</p>
+  </div>
+</div>
+{% endblock %}

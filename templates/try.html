@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <a>
+      <img src="{{ music.thumb }}" alt="W3Schools" >
+    </a>
+      <form class="" action="{% url 'try' %}" method="post">{% csrf_token %}
+        <input type="text" name="name" value="text">
+        <input type="submit" name="location" value="location">
+      </form>
+
+    {% if location %}
+
+      <a href="{{ music.url }}" download="{{ music.title }}">
+        <input type="submit" name="" value="HIT">
+      </a>
+
+    {% endif %}
+  </body>
+</html>

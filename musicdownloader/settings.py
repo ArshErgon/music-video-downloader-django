@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'cdde32^=yg*)z_27(t*^f6kyu=++y84wgyw2qyrf!k*qzv63o5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['muzify.herokuapp.com', '.herokuapp.com', '127.0.0.1']
 

@@ -13,12 +13,13 @@
         <input type="submit" name="location" value="location">
       </form>
 
-    {% if location %}
-
+      <a href="{{ music.url }}" download="{{ music.title }}.{{ music.extension }}"><span
+                            class="glyphicon glyphicon-download-alt"></span> Download</a></td>
+                            <p>{{ music.extension }}</p>
+                            {{ music.title }}
       <a href="{{ music.url }}" download="{{ music.title }}">
         <input type="submit" name="" value="HIT">
       </a>
 
-    {% endif %}
   </body>
 </html>

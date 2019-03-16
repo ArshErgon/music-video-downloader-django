@@ -35,6 +35,7 @@ def music_home(request):
         MusicModelJAM.objects.create(url=link) # save the data in database so that we can inherited it to another function
         # It can't inherited like this global keyword can work but when the function calls we say one argument is missing "request"
         print(music)
+
         return render(request, 'music/music_home.html', {'form':form, 'music':music})
     except:
         pass
@@ -52,35 +53,44 @@ def music_home(request):
 def download_data(request):
     form = MusicUrl(request.POST or None) # form see in forms.py
     links = MusicModelJAM.objects.all() # get all element that are present in database
-    music_down = ''                     # empty string for not to face UnBoundError
+    extension = music_down = ''                     # empty string for not to face UnBoundError
     print(request.path_info)
     # print(os.getcwd(), 'printing working directory for know the download loca')
+
     for link in links:
         pass
     music = pafy.new(link)
-    MusicModelJAM.objects.all().delete()
-    MusicModelJAM.objects.all().delete()
+    # MusicModelJAM.objects.all().delete()
+    # MusicModelJAM.objects.all().delete()
 
     user_need =  request.POST.get("selected")
 
     if str(user_need) == 'Audio:m4a@128k':
         music_down = music.getbestaudio(preftype='m4a')
-        music_down.download(filepath="C:")
-        # music_down.download()
-        return redirect("/thank/")
+        # print(dir(music_down))
+        extension = music_down.extension
+        music_try = ''
+
+        print(request.POST.get("download_location"), 'printing it here')
+        # music_down.download(filepath="C:")
+        # music_try =  music_down.download(filepath='')
+        # return redirect("/thank/")
+        return render(request, 'music/music_home.html', {'form':form, 'extension':extension, 'music':music, 'music_try':music_try})
 
     elif str(user_need) == 'Video:mp4@640x360':
         music_down = getbest(preftype='mp4')
+        extension = music_down.extension
         music_down.download(filepath="C:")
         return redirect("/thank/")
 
     elif str(user_need) == 'Video:mp4@1920x1080':
         music_down = getbestideo(preftype='mp4')
+        extension = music_down.extension
         music_down.download(filepath="C:")
         return redirect("/thank/")
     else:
         pass
-    return render(request, 'music/music_home.html', {'form':form})
+    return render(request, 'music/music_home.html', {'form':form, 'extension':extension})
 
 # End here
 # ============================ mobile_music_search =============================
@@ -150,8 +160,7 @@ def thankyou(request):
 def trypage(request):
     links = MusicModelJAM.objects.all()
     music_down = ''
-    location = request.POST.get("name")
-    print(location)
+
     print(request.path_info)
     for link in links:
         pass
@@ -160,6 +169,7 @@ def trypage(request):
         link = request.POST.get('url')
         music = pafy.new(link)
         print(music)
+        print(dir(music))
         music_title = music.title
         music_author = music.author
         music_thumbnail = music.bigthumbhd
@@ -168,4 +178,8 @@ def trypage(request):
         print(music_category, 'condition start here')
     except:
         pass
-    return render(request, 'try.html', {'music':music, 'location':location})
+    # print(dir(music.allstreams))
+    print(dir(pafy))
+    # print(dir(music.streams))
+    print(music.audiostreams)
+    return render(request, 'try.html', {'music':music})

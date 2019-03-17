@@ -171,9 +171,10 @@ def trypage(request):
     for link in links:
         pass
     music = pafy.new(link)
-    music_down = music.getbestaudio(preftype="m4a")
+    music_down = music.getbestvideo(preftype="mp4")
     # extension = 'm4a'
     extension = music_down.extension
+    print(dir(music_down))
     # time.sleep(20)
     # music_try = music_down.download()
     # try:

@@ -60,29 +60,31 @@ def download_data(request):
     for link in links:
         pass
     music = pafy.new(link)
-    # MusicModelJAM.objects.all().delete()
-    # MusicModelJAM.objects.all().delete()
-
+    
     user_need =  request.POST.get("selected")
 
     if str(user_need) == 'Audio:m4a@128k':
         music_down = music.getbestaudio(preftype='m4a')
         # print(dir(music_down))
         extension = music_down.extension    # taking the extension of the music like m4a for audio or mp4 for videos
-        # music_down = music.getbestaudio(preftype='m4a')
+        MusicModelJAM.objects.all().delete()
         return render(request, 'music/music_home.html', {'form':form, 'extension':extension, 'music':music, 'music_down':music_down})
 
     elif str(user_need) == 'Video:mp4@640x360':
         music_down = getbestvideo(preftype='mp4')
         extension = music_down.extension
+        MusicModelJAM.objects.all().delete()
         return render(request, 'music/music_home.html', {'form':form, 'extension':extension, 'music':music, 'music_down':music_down})
 
     elif str(user_need) == 'Video:mp4@1920x1080':
         music_down = getbestvideo(preftype='mp4')
         extension = music_down.extension
+        MusicModelJAM.objects.all().delete()
         return render(request, 'music/music_home.html', {'form':form, 'extension':extension, 'music':music,  'music_down':music_down})
     else:
         pass
+    MusicModelJAM.objects.all().delete()
+    MusicModelJAM.objects.all().delete()
     return render(request, 'music/music_home.html', {'form':form, 'extension':extension})
 
 

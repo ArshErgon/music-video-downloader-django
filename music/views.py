@@ -60,7 +60,7 @@ def download_data(request):
     for link in links:
         pass
     music = pafy.new(link)
-    
+
     user_need =  request.POST.get("selected")
 
     if str(user_need) == 'Audio:m4a@128k':
@@ -71,13 +71,13 @@ def download_data(request):
         return render(request, 'music/music_home.html', {'form':form, 'extension':extension, 'music':music, 'music_down':music_down})
 
     elif str(user_need) == 'Video:mp4@640x360':
-        music_down = getbestvideo(preftype='mp4')
+        music_down = music.getbestvideo(preftype='mp4')
         extension = music_down.extension
         MusicModelJAM.objects.all().delete()
         return render(request, 'music/music_home.html', {'form':form, 'extension':extension, 'music':music, 'music_down':music_down})
 
     elif str(user_need) == 'Video:mp4@1920x1080':
-        music_down = getbestvideo(preftype='mp4')
+        music_down = music.getbestvideo(preftype='mp4')
         extension = music_down.extension
         MusicModelJAM.objects.all().delete()
         return render(request, 'music/music_home.html', {'form':form, 'extension':extension, 'music':music,  'music_down':music_down})

@@ -69,124 +69,48 @@ def download_data(request):
         music_down = music.getbestaudio(preftype='m4a')
         # print(dir(music_down))
         extension = music_down.extension    # taking the extension of the music like m4a for audio or mp4 for videos
-        music_try = ''
-        print(request.POST.get("done"), 'printing it here !!!')
-
-        # if extension:
-        #     music_try =  music_down.download()
-        #     return render(request, 'music/music_home.html', {'form':form, 'extension':extension, 'music':music, 'music_try':music_try})
-        print(request.POST.get("download_location"), 'printing it here')
-        # music_down.download(filepath="C:")
-        # music_try =  music_down.download(filepath='')
-        # return redirect("/thank/")
-        return render(request, 'music/music_home.html', {'form':form, 'extension':extension, 'music':music, 'music_try':music_try})
+        # music_down = music.getbestaudio(preftype='m4a')
+        return render(request, 'music/music_home.html', {'form':form, 'extension':extension, 'music':music, 'music_down':music_down})
 
     elif str(user_need) == 'Video:mp4@640x360':
-        music_down = getbest(preftype='mp4')
+        music_down = getbestvideo(preftype='mp4')
         extension = music_down.extension
-        music_down.download(filepath="C:")
-        return redirect("/thank/")
+        return render(request, 'music/music_home.html', {'form':form, 'extension':extension, 'music':music, 'music_down':music_down})
 
     elif str(user_need) == 'Video:mp4@1920x1080':
-        music_down = getbestideo(preftype='mp4')
+        music_down = getbestvideo(preftype='mp4')
         extension = music_down.extension
-        music_down.download(filepath="C:")
-        return redirect("/thank/")
+        return render(request, 'music/music_home.html', {'form':form, 'extension':extension, 'music':music,  'music_down':music_down})
     else:
         pass
     return render(request, 'music/music_home.html', {'form':form, 'extension':extension})
 
-# End here
-# ============================ mobile_music_search =============================
-# this will redirect to a html page which made only for mobile devices I use javascript for this (see music_home.html last line)
-# 1. again form
-# 2. it is same as music_home function
 
-# from here mobile music downloader start
-
-def mobile_music_search(request):
-    form = MusicUrl(request.POST or None)
-    try:
-        link = request.POST.get('url')
-        music = pafy.new(link)
-        MusicModelMobile.objects.create(url=link)
-        return render(request, 'music/mobile_music_downloader.html', {'form':form, 'music':music})
-    except:
-        pass
-
-
-    return render(request, "music/mobile_music_downloader.html", {'form': form})
-
-# ======================== mobile_music_downloader ===========================
-# ====================== it is same as download_data functin ==================
-# 1. here the music download path is Internal storage\\Downloads\\ most common download location in android
-# 2. the redirect goes to thank page download complete
-def mobile_music_downloader(request):
-    form = MusicUrl(request.POST or None)
-    links = MusicModelMobile.objects.all()
-    for link in links:
-        pass
-    music = pafy.new(link)
-    MusicModelMobile.objects.all().delete()
-    MusicModelMobile.objects.all().delete()
-    user_need =  request.POST.get("selected")
-
-    if str(user_need) == 'Audio:m4a@128k':
-        music_down = music.getbestaudio(preftype='m4a')
-        music_down.download(filepath="Internal storage\\Downloads\\")
-        # music_down.download(filepath="C:\\Users\\HP\\Desktop\\APK projects") # save location on mobile devices
-
-        # return redirect('%s'%(str(request.path_info)))
-        print("Mobile download")
-        return redirect("/thank/")
-
-    elif str(user_need) == 'Video:mp4@640x360':
-        music_down = music.getbestvideo(preftype='mp4')
-        music_down.download(filepath="Internal storage\\Downloads\\")
-        return redirect("/thank/")
-
-    elif str(user_need) == 'Video:mp4@1920x1080':
-        music_down = music.getbestvideo(preftype='mp4')
-        music_down.download(filepath="Internal storage\\Downloads\\")
-        return redirect("/thank/")
-
-    else:
-        pass
-
-    return render(request, 'music/mobile_music_downloader.html', {'form':form})
-
-# end here
-
-# thank you page
-def thankyou(request):
-    return render(request, 'index.html')
-
-import time
-# practice function for testing
-def trypage(request):
-    links = MusicModelJAM.objects.all()
-    music_down = ''
-
-    print(request.path_info)
-    for link in links:
-        pass
-    music = pafy.new(link)
-    music_down = music.getbestvideo(preftype="mp4")
-    # extension = 'm4a'
-    extension = music_down.extension
-    print(dir(music_down))
-    # time.sleep(20)
-    # music_try = music_down.download()
-    # try:
-    #     music = pafy.new(link)
-    #     print(music)
-    #     print(dir(music))
-    #
-    #     music_down = music.getbestaudio(preftype='m4a')
-    #     print(music_down, 'printing it here')
-    #     return render(request, 'try.html', {'music':music, 'music_down':music_down})
-    # except:
-    #     pass
-    print(music_down, 'downloading music')
-    print(request.POST.get("location"), 'location is print here')
-    return render(request, 'try.html', {'music':music, 'music_down':music_down, 'extension':extension, 'link':link})
+# # practice function for testing
+# def trypage(request):
+#     links = MusicModelJAM.objects.all()
+#     music_down = ''
+#
+#     print(request.path_info)
+#     for link in links:
+#         pass
+#     music = pafy.new(link)
+#     music_down = music.getbestvideo(preftype="mp4")
+#     # extension = 'm4a'
+#     extension = music_down.extension
+#     print(dir(music_down))
+#     # time.sleep(20)
+#     # music_try = music_down.download()
+#     # try:
+#     #     music = pafy.new(link)
+#     #     print(music)
+#     #     print(dir(music))
+#     #
+#     #     music_down = music.getbestaudio(preftype='m4a')
+#     #     print(music_down, 'printing it here')
+#     #     return render(request, 'try.html', {'music':music, 'music_down':music_down})
+#     # except:
+#     #     pass
+#     # print(music_down, 'downloading music')
+#     # print(request.POST.get("location"), 'location is print here')
+#     return render(request, 'try.html', {'music':music, 'music_down':music_down, 'extension':extension, 'link':link})

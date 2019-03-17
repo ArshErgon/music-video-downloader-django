@@ -40,7 +40,7 @@
                 {% if  not extension %}
                 <input type="submit" name="download_button" value="Submit" class="btn btn-primary">
                 {% else %}
-                <a href="{{ music_try }}" download="{{ music.title }}.{{ extension }}" id="done" name="done"><input class="btn btn-danger" type="button"  value="Download"></a>
+                <a href="{{ music_down.url }}" download="{{ music.title }}.{{ extension }}" id="done" name="done"><input class="btn btn-danger" type="button"  value="Download"></a>
                 {% endif %}
               </center>
               </form>
@@ -80,15 +80,5 @@
   </div>
 </div>
 
-<!--  If user using not an desktop  DUCK ENGLISH -->
-<!--  If user is not using Desktop  -->
 
-<script type="text/javascript">
-
-if(screen.width<=699) {
-
-  document.location = "{% url 'mobile_download' %}"
-}
-
-</script>
 {% endblock %}

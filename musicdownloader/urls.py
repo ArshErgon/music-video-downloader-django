@@ -15,14 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from music.views import music_home,  download_data, trypage, mobile_music_downloader, mobile_music_search, thankyou
+from music.views import music_home,  download_data
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', music_home, name='music'),
     path('download/', download_data, name='download_data'),
-    path("try/", trypage, name='try'),
-    path("mobile/", mobile_music_search, name="mobile_search"),
-    path("result/", mobile_music_downloader, name="mobile_download"),
-    path('thank/', thankyou, name='thank'),
 ]

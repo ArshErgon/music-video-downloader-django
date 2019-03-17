@@ -24,8 +24,9 @@
         <center><div>
           <p>Song: {{ music.title }}</p>
           <p>Author: {{ music.author }}</p>
+          <p>Duration: {{ music.duration }}</p>
           <p>Category: {{ music.category }}</p>
-          <p>{{ extension }}</p>
+          <p>Extension: {{ extension|default:"Please select the type" }}</p>
         </div></center>
           <div class="container">
             <div class="form-group">
@@ -38,9 +39,8 @@
               <center>
                 {% if  not extension %}
                 <input type="submit" name="download_button" value="Submit" class="btn btn-primary">
-
                 {% else %}
-                <a href="{{ music_try }}" download="{{ music.title }}.{{ extension }}"><input class="btn btn-danger" type="button"  name="download_location" value="Download"></a>
+                <a href="{{ music_try }}" download="{{ music.title }}.{{ extension }}" id="done" name="done"><input class="btn btn-danger" type="button"  value="Download"></a>
                 {% endif %}
               </center>
               </form>

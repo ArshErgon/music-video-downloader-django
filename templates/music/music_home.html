@@ -20,14 +20,16 @@
 
     <div class="container">
       <div class="jumbotron">
-        <center><a href="{{ music.url }}" target="blank"><img src="{{ music.bigthumbhd }}" alt="" width="50%"></a></center><br>
+        <center><a href="{{ music.watchv_url }}" target="blank"><img src="{{ music.bigthumbhd }}" alt="" width="50%"></a></center><br>
         <center><div>
           <p>Song: {{ music.title }}</p>
           <p>Author: {{ music.author }}</p>
           <p>Duration: {{ music.duration }}</p>
           <p>Category: {{ music.category }}</p>
           <p>Extension: {{ extension|default:"Please select the type" }}</p>
+          <p>{{ music.title }}.{{ extension }}</p>
         </div></center>
+        {% if not extension %}
           <div class="container">
             <div class="form-group">
             <label for="exampleFormControlSelect1">Select</label>
@@ -37,10 +39,17 @@
               <option>Video:mp4@1920x1080</option>
             </select><br>
               <center>
-                {% if  not extension %}
+                <hr>
                 <input type="submit" name="download_button" value="Submit" class="btn btn-primary">
+              </center>
                 {% else %}
-                <a href="{{ music_down.url }}" download="{{ music.title }}.{{ extension }}" id="done" name="done"><input class="btn btn-danger" type="button"  value="Download"></a>
+              <center>
+              <hr>
+                <a download="{{ music.title }}.{{ extension }}" href="{{ music_down.url }}" name="{{ music.title }}.{{ extension }}" download="{{ music.title }}.{{ extension }}"><input class="btn btn-danger" type="button"  value="Download"></a>
+                <!-- <a href="" download="{{ music.title }}.{{ extension }}">DOn</a>
+                <audio controls>
+                <source src="{{ music_down.url }}/{{ music.title }}" type="video/mp4" download="{{ music.title }}.{{ extension }}">
+                </audio> -->
                 {% endif %}
               </center>
               </form>

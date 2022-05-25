@@ -28,7 +28,7 @@ psycopg2==2.7.6.1
 psycopg2-binary==2.7.7
 pycparser==2.19
 PyInstaller==3.4
-PyJWT==1.7.1
+PyJWT==2.4.0
 python-dateutil==1.5
 pythonanywhere==0.7.4
 pytube==9.4.0
